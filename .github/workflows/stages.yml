@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: simplestagesdemo
+name: stages
 on:
   push:
     branches: [ "main" ]
@@ -20,6 +20,17 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo This is my first stage!
+
+    waiter:
+    # Which image should my job run on? 
+    # Could also be Windows 2019 (windows-2019) or macOS Monterey 12 (macos-12)
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo This is my first stage!
