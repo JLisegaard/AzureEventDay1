@@ -24,7 +24,7 @@ jobs:
       - name: Run a one-line script
         run: echo This is my first stage!
 
-  StageOne:
+  test:
     # This stage is dependant of my 'build' job.
     needs: build
     runs-on: ubuntu-latest
@@ -32,12 +32,12 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Run a one-line script
-        run: echo Wow, this is my second stage!
+        run: echo Wow, this is my test stage!
 
-  StageTwo:
+  prod:
     # This can't run unless 'build' AND 'StageOne' have completed.
     # In this case we should only depend on StageOne as it is already dependant of build.
-    needs: [build, StageOne]
+    needs: [build, test]
     # In this setup, I don't dare to go to 'StageTwo' unless Ramtin has approved.
     # So I've created an environment called 'ramtinNeedsToApprove'
     # You can find it at Settings/Environment (note: some prerequisites)
@@ -50,5 +50,5 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo Ramtin has approved! Lets complete StageTwo        
+        run: echo Jesper has approved! Lets complete prod        
           
