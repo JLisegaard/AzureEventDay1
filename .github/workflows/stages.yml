@@ -24,7 +24,7 @@ jobs:
       - name: Run a one-line script
         run: echo This is my first stage!
 
-    waiter:
+  waiter:
     # Which image should my job run on? 
     # Could also be Windows 2019 (windows-2019) or macOS Monterey 12 (macos-12)
     runs-on: ubuntu-latest
