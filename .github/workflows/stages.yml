@@ -1,0 +1,54 @@
+# This is a basic workflow to help you get started with Actions
+
+name: simplestagesdemo
+on:
+  push:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    # Which image should my job run on? 
+    # Could also be Windows 2019 (windows-2019) or macOS Monterey 12 (macos-12)
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo This is my first stage!
+
+  StageOne:
+    # This stage is dependant of my 'build' job.
+    needs: build
+    runs-on: ubuntu-latest
+    
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Run a one-line script
+        run: echo Wow, this is my second stage!
+
+  StageTwo:
+    # This can't run unless 'build' AND 'StageOne' have completed.
+    # In this case we should only depend on StageOne as it is already dependant of build.
+    needs: [build, StageOne]
+    # In this setup, I don't dare to go to 'StageTwo' unless Ramtin has approved.
+    # So I've created an environment called 'ramtinNeedsToApprove'
+    # You can find it at Settings/Environment (note: some prerequisites)
+    environment:
+      name: JesperToApprove
+    runs-on: ubuntu-latest
+    
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Ramtin has approved! Lets complete StageTwo        
+          
