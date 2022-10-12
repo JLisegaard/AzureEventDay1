@@ -24,7 +24,7 @@ jobs:
       - name: Run a one-line script
         run: echo This is my first stage!
 
-  test:
+  test: 
     # This stage is dependant of my 'build' job.
     needs: build
     runs-on: ubuntu-latest
